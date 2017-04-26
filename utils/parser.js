@@ -17,6 +17,7 @@ function parse(data){
 		newPg.url = entry.url;
 		newPg.zip = entry.zip_code;
 		newPg.features = features(entry.features);
+		newPg.remarks = entry.public_remarks;
 
 		writeUserData(newPg.slug, newPg.name, newPg.location, newPg.address, newPg.city, newPg.state, newPg.url, newPg.zip, newPg.features);
 
