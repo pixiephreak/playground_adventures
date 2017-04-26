@@ -1,0 +1,70 @@
+/*Image ToDos
+- make header full-length
+- make search bar centered and shorter
+- make image smaller and centered on page
+*/
+@font-face {
+	font-family: Doctor_Soot_Bold;
+	src: url('Doctor_Soot_Bold.ttf')
+}
+.test {
+    padding: 10px;
+	text-align: center;
+}
+
+#header {
+	background-color: white;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	margin-top: 5px;
+	margin-bottom: 5px; 
+	font-family: Doctor_Soot_Bold;
+}
+
+#title {
+	font-size: 65px; 
+	color: #00b500; 
+	margin-top: 5px;
+	margin-bottom: 5px; 
+}
+
+#title-description {
+	font-size: 25px; 
+	margin-bottom: 5px; 
+	color: blue;
+}
+
+#inputArea{
+	margin-top: 5px;
+	margin-bottom: 5px; 
+}
+#locationField {
+	padding-bottom: 10px; 
+}
+
+img {
+	/*margin: auto;*/
+	width: 85%;
+}
+
+#gMap {
+	height: 800px;
+}
+
+#weatherIcon {
+	width: 100px;
+}
+
+#detailModal {
+	text-align: center;
+	font-family: Doctor_Soot_Bold;
+	font-size: 15px;  
+}
+
+.modal-content {
+	background: rgb(225, 189, 137); 
+}
+
+#temp {
+	margin-top: 10px; 
+}

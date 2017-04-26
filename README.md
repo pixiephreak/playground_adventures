@@ -1,2 +1,2 @@
-# playground_adventures
-An interactive map that helps caregivers find accessible playgrounds
+# GWCB_project-1
+Create an app using 2 apis and a CSS framework
