@@ -12,6 +12,10 @@
 
 <body>
     <nav id="drawer" data-bind="css: {open: navVisible}">
+      <input id="autocomplete" placeholder="Enter your address" onFocus="geolocate()" type="search">
+      </input>
+      <i class="fa fa-search" aria-hidden="true" id="submit"></i>
+
         <!-- KO dropdown -->
         <aside>
             <!-- Category: -->
@@ -36,13 +40,52 @@
     <main>
         <div id="map"></div>
     </main>
+
+  <!-- Detail Modal-->
+  <div class="modal fade" id="detailModal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Detail Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Playground Details</h4>
+        </div>
+        <div class="modal-body">
+          <div id="name">Row 1</div>
+          <hr>
+           <div id="weather">
+            <div class="row">
+             <div class="col-xs-6" id="temp"></div>
+             <div class="col-xs-6" id="weatherIcon"></div>
+            </div>
+           </div>
+           <hr>
+            <div id="address">Row 3</div>
+            <hr>
+             <div id="accessibility">Row 4</div>
+             <hr>
+              <div id="contact">Row 5</div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
 </body>
+  <script src="https://use.fontawesome.com/bdf18541d4.js"></script>
   <!-- connect to Firebase -->
   <script src="https://www.gstatic.com/firebasejs/3.7.4/firebase.js"></script>
-  <script src="assets/js/fb_config.js"></script>
-  <script src="utils/playgrounds.js"></script>
-  <script src="utils/parser.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="assets/js/fb_config.js"></script>
+  <!-- uncomment to update data -->
+  <!-- <script src="utils/playgrounds.js"></script> -->
+  <!-- <script src="utils/parser.js"></script> -->
+  <script src="assets/js/oauth-signature.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.1/knockout-min.js"></script>

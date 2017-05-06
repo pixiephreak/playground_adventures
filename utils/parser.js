@@ -19,7 +19,7 @@ function parse(data){
 		newPg.features = features(entry.features);
 		newPg.remarks = entry.public_remarks;
 
-		writeUserData(newPg.slug, newPg.name, newPg.location, newPg.address, newPg.city, newPg.state, newPg.url, newPg.zip, newPg.features);
+		writeUserData(newPg.slug, newPg.name, newPg.location, newPg.address, newPg.city, newPg.state, newPg.url, newPg.zip, newPg.features, newPg.remarks);
 
 		function features(arr){
 			var pgFeatures = [];
@@ -35,7 +35,7 @@ function parse(data){
 parse(pgDataSet);
 
 
-function writeUserData(userId, name, location, address, city, state, url, zip, features) {
+function writeUserData(userId, name, location, address, city, state, url, zip, features, remarks) {
 
 	var path = 'playgrounds/'+ userId;
   	firebase.database().ref(path).set({
@@ -47,6 +47,7 @@ function writeUserData(userId, name, location, address, city, state, url, zip, f
    	city: city,
    	url: url,
    	zip: zip,
-   	features: features
+   	features: features,
+		remarks: remarks
   });
 }
