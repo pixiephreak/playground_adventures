@@ -63,28 +63,6 @@ var ViewModel = function() {
     this.navVisible(!this.navVisible());
   };
 
-  this.filterPlaces = ko.computed(function() {
-    self.currentPlaces = ko.observableArray([]);
-    if (!self.selectedCategory() || self.selectedCategory() === 'All') {
-      self.places().forEach(function(place) {
-        place.marker.setVisible(true);
-      });
-      return self.places();
-    } else {
-      self.places().forEach(function(place) {
-        place.marker.setVisible(false); // marker is hidden
-        //add type to data in parser
-        var type = place.type;
-        if (self.selectedCategory().toLowerCase() === type.toLowerCase()) {
-          self.currentPlaces.push(place);
-          place.marker.setVisible(true); // marker is shown
-          place.marker.setAnimation(google.maps.Animation.DROP);
-        }
-      });
-      return self.currentPlaces();
-    }
-
-  });
 
   this.initMap = function() {
     infowindow = new google.maps.InfoWindow();
@@ -127,7 +105,6 @@ var ViewModel = function() {
           url: queryURL,
           method: "GET"
         }).done(function(response) {
-          // console.log("response",response)
           center = response.results[0].geometry.location;
           map = new google.maps.Map(document.getElementById('map'), {
             center: center,
@@ -135,10 +112,9 @@ var ViewModel = function() {
             styles: vintageStyles,
             mapTypeControl: false
           });
-          // console.log("object",obj);
-          var search_area, in_area = [];
 
-          // We create a circle to look within:
+          var search_area, in_area = [];
+          // a circle to look within:
           search_area = {
             strokeColor: '#FF0000',
             strokeOpacity: 0.8,
@@ -148,19 +124,46 @@ var ViewModel = function() {
           }
 
           search_area = new google.maps.Circle(search_area);
+          //push all locations ot places markers array
+          //this is where markers are going on page TODO compare tp ko original
           for (var key in locations) {
             var obj = locations[key];
             if (!locations.hasOwnProperty(key)) continue;
             places.push(new Place(obj, map));
             };
-          // console.log("places", places)
-          $.each(places.marker, function(i, marker) {
-            if (google.maps.geometry.poly.containsLocation(marker.getPosition(), search_area)) {
-              in_area.push(marker);
+          console.log(places);
+          //filtering happens on load
+          this.filterPlaces = ko.computed(function() {
+            self.currentPlaces = ko.observableArray([]);
+            if (!self.selectedCategory() || self.selectedCategory() === 'All') {
+              self.places().forEach(function(place) {s
+                place.marker.setVisible(true);
+              });
+              return self.places();
+            } else {
+              self.places().forEach(function(place) {
+                place.marker.setVisible(false); // marker is hidden
+                //add type to data in parser
+                var type = place.type;
+                if (self.selectedCategory().toLowerCase() === type.toLowerCase()) {
+                  self.currentPlaces.push(place);
+                  place.marker.setVisible(true); // marker is shown
+                  place.marker.setAnimation(google.maps.Animation.DROP);
+                }
+              });
+              return self.currentPlaces();
             }
-        });
 
-          console.log('inareainfo',in_area);
+          });
+        //place markers within radius on map doesn't work
+        //   $.each(places.marker, function(i, marker) {
+        //     if (google.maps.geometry.poly.containsLocation(marker.getPosition(), search_area)) {
+        //       console.log(marker);
+        //       in_area.push(marker);
+        //     }
+        // });
+        //
+        //   console.log('inareainfo',in_area);
 
 
         });
