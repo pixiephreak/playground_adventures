@@ -117,6 +117,7 @@ var ViewModel = function() {
       });
 
       document.getElementById('submit').onclick = function() {
+        // console.log("place",place);
         var address = place.formatted_address;
         var addressArray = address.split(' ');
         var addressParam = addressArray.join('+');
@@ -126,6 +127,7 @@ var ViewModel = function() {
           url: queryURL,
           method: "GET"
         }).done(function(response) {
+          // console.log("response",response)
           center = response.results[0].geometry.location;
           map = new google.maps.Map(document.getElementById('map'), {
             center: center,
@@ -133,48 +135,35 @@ var ViewModel = function() {
             styles: vintageStyles,
             mapTypeControl: false
           });
-        });
-        for (var key in locations) {
-          var geocoder = new google.maps.Geocoder();
-          if (!locations.hasOwnProperty(key)) continue;
-          var obj = locations[key];
-          codeAddress();
-          function codeAddress() {
-            var radius = parseInt(10, 10) * 1000;
-            geocoder.geocode({
-              'address': address
-            }, function(results, status) {
-              if (status == google.maps.GeocoderStatus.OK) {
-                map.setCenter(results[0].geometry.location);
-                var marker = new google.maps.Marker({
-                  map: map,
-                  position: results[0].geometry.location
-                });
-                if (circle) circle.setMap(null);
-                circle = new google.maps.Circle({
-                  center: marker.getPosition(),
-                  radius: radius,
-                  fillOpacity: 0.35,
-                  fillColor: "#FF0000",
-                  map: map
-                });
-                var bounds = new google.maps.LatLngBounds();
-                for (var i = 0; i < gmarkers.length; i++) {
-                  if (google.maps.geometry.spherical.computeDistanceBetween(gmarkers[i].getPosition(), marker.getPosition()) < radius) {
-                    bounds.extend(gmarkers[i].getPosition())
-                    places.push(new Place(obj, map));
-                  } else {
-                    // locations[i].setMap(null);
-                  }
-                }
-                map.fitBounds(bounds);
+          // console.log("object",obj);
+          var search_area, in_area = [];
 
-              } else {
-                alert('Geocode was not successful for the following reason: ' + status);
-              }
-            });
+          // We create a circle to look within:
+          search_area = {
+            strokeColor: '#FF0000',
+            strokeOpacity: 0.8,
+            strokeWeight: 2,
+            center: center,
+            radius: 500
           }
-        }
+
+          search_area = new google.maps.Circle(search_area);
+          for (var key in locations) {
+            var obj = locations[key];
+            if (!locations.hasOwnProperty(key)) continue;
+            places.push(new Place(obj, map));
+            };
+          // console.log("places", places)
+          $.each(places.marker, function(i, marker) {
+            if (google.maps.geometry.poly.containsLocation(marker.getPosition(), search_area)) {
+              in_area.push(marker);
+            }
+        });
+
+          console.log('inareainfo',in_area);
+
+
+        });
       }
     });
 
