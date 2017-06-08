@@ -114,7 +114,6 @@ var ViewModel = function() {
       //save place info on user selection
       autocomplete.addListener('place_changed', function() {
         place = autocomplete.getPlace();
-
       });
 
       document.getElementById('submit').onclick = function() {
@@ -135,18 +134,48 @@ var ViewModel = function() {
             mapTypeControl: false
           });
         });
-        for (var key in locations){
-				if(!locations.hasOwnProperty(key)) continue;
-				var obj = locations[key];
-				places.push(new Place(obj, map));
-			}
+        for (var key in locations) {
+          var geocoder = new google.maps.Geocoder();
+          if (!locations.hasOwnProperty(key)) continue;
+          var obj = locations[key];
+          codeAddress();
+          function codeAddress() {
+            var radius = parseInt(10, 10) * 1000;
+            geocoder.geocode({
+              'address': address
+            }, function(results, status) {
+              if (status == google.maps.GeocoderStatus.OK) {
+                map.setCenter(results[0].geometry.location);
+                var marker = new google.maps.Marker({
+                  map: map,
+                  position: results[0].geometry.location
+                });
+                if (circle) circle.setMap(null);
+                circle = new google.maps.Circle({
+                  center: marker.getPosition(),
+                  radius: radius,
+                  fillOpacity: 0.35,
+                  fillColor: "#FF0000",
+                  map: map
+                });
+                var bounds = new google.maps.LatLngBounds();
+                for (var i = 0; i < gmarkers.length; i++) {
+                  if (google.maps.geometry.spherical.computeDistanceBetween(gmarkers[i].getPosition(), marker.getPosition()) < radius) {
+                    bounds.extend(gmarkers[i].getPosition())
+                    places.push(new Place(obj, map));
+                  } else {
+                    // locations[i].setMap(null);
+                  }
+                }
+                map.fitBounds(bounds);
 
+              } else {
+                alert('Geocode was not successful for the following reason: ' + status);
+              }
+            });
+          }
+        }
       }
-      // for (var key in locations) {
-      // 	if (!locations.hasOwnProperty(key)) continue;
-      // 	var obj = locations[key];
-      // 	self.places.push(new Place(obj, map));
-      // }
     });
 
   };
