@@ -4,6 +4,7 @@ var center = {
   lat: 38.922106,
   lng: -77.017673
 };
+var places=[];
 
 var Place = function(data, map) {
   var self = this;
@@ -80,7 +81,6 @@ var ViewModel = function() {
     //grab playground data from fb
     firebase.database().ref('playgrounds/').on("value", function(snapshot) {
       var locations = snapshot.val();
-      var places = [];
       var place;
       var input = document.getElementById('autocomplete');
 
