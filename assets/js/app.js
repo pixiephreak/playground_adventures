@@ -4,7 +4,7 @@ var center = {
   lat: 38.922106,
   lng: -77.017673
 };
-var places=[];
+var places = [];
 
 var Place = function(data, map) {
   var self = this;
@@ -94,12 +94,15 @@ var ViewModel = function() {
         place = autocomplete.getPlace();
       });
 
-      document.getElementById('submit').onclick = function() {
-        // console.log("place",place);
-        var address = place.formatted_address;
-        var addressArray = address.split(' ');
-        var addressParam = addressArray.join('+');
-        var components = '&components=country:US';
+      $('#autocomplete').on('keyup', function(e) {
+        console.log('pressing');
+        if (e.keyCode === 13) {
+          console.log(13);
+          var address = place.formatted_address;
+          var addressArray = address.split(' ');
+          var addressParam = addressArray.join('+');
+          var components = '&components=country:US';
+        }
         queryURL = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + addressParam + components;
         $.ajax({
           url: queryURL,
@@ -112,31 +115,12 @@ var ViewModel = function() {
             styles: vintageStyles,
             mapTypeControl: false
           });
-
-          var search_area, in_area = [];
-          // a circle to look within:
-          search_area = {
-            strokeColor: '#FF0000',
-            strokeOpacity: 0.8,
-            strokeWeight: 2,
-            center: center,
-            radius: 500
-          }
-
-          search_area = new google.maps.Circle(search_area);
-          //push all locations ot places markers array
-          //this is where markers are going on page TODO compare tp ko original
-          for (var key in locations) {
-            var obj = locations[key];
-            if (!locations.hasOwnProperty(key)) continue;
-            places.push(new Place(obj, map));
-            };
-          console.log(places);
           //filtering happens on load
           this.filterPlaces = ko.computed(function() {
             self.currentPlaces = ko.observableArray([]);
             if (!self.selectedCategory() || self.selectedCategory() === 'All') {
-              self.places().forEach(function(place) {s
+              self.places().forEach(function(place) {
+                s
                 place.marker.setVisible(true);
               });
               return self.places();
@@ -153,23 +137,48 @@ var ViewModel = function() {
               });
               return self.currentPlaces();
             }
-
           });
-        //place markers within radius on map doesn't work
-        //   $.each(places.marker, function(i, marker) {
-        //     if (google.maps.geometry.poly.containsLocation(marker.getPosition(), search_area)) {
-        //       console.log(marker);
-        //       in_area.push(marker);
-        //     }
-        // });
-        //
-        //   console.log('inareainfo',in_area);
-
-
         });
-      }
-    });
 
+      });
+      // console.log("place",place);
+
+
+
+
+      // var search_area, in_area = [];
+      // // a circle to look within:
+      // search_area = {
+      //   strokeColor: '#FF0000',
+      //   strokeOpacity: 0.8,
+      //   strokeWeight: 2,
+      //   center: center,
+      //   radius: 500
+      // }
+      //
+      // search_area = new google.maps.Circle(search_area);
+      // //push all locations ot places markers array
+      // //this is where markers are going on page TODO compare tp ko original
+      // for (var key in locations) {
+      //   var obj = locations[key];
+      //   if (!locations.hasOwnProperty(key)) continue;
+      //   places.push(new Place(obj, map));
+      // };
+      // console.log(places);
+
+      //place markers within radius on map doesn't work
+      //   $.each(places.marker, function(i, marker) {
+      //     if (google.maps.geometry.poly.containsLocation(marker.getPosition(), search_area)) {
+      //       console.log(marker);
+      //       in_area.push(marker);
+      //     }
+      // });
+      //
+      //   console.log('inareainfo',in_area);
+
+
+
+    });
   };
 
   this.setWindow = function(clickedLoc) {
