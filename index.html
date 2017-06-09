@@ -1,14 +1,46 @@
-
 <!DOCTYPE html>
 <html lang="en-us">
+
 <head>
   <meta charset="utf-8">
   <title>Playground Adventures!</title>
   <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Fredoka+One|Open+Sans" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 </head>
+
 <body>
+    <nav id="drawer" data-bind="css: {open: navVisible}">
+      <input id="autocomplete" placeholder="Enter your address" onFocus="geolocate()" type="search">
+      </input>
+      <i class="fa fa-search" aria-hidden="true" id="submit"></i>
+
+        <!-- KO dropdown -->
+        <aside>
+            <!-- Category: -->
+            <select data-bind="options: categories,
+                               value: selectedCategory ,
+                               optionsCaption: 'Choose...'"></select>
+        </aside>
+        <div>
+            <ul data-bind="foreach: places ">
+                <li data-bind="text: name, click: $parent.setWindow">
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <a id="menu" data-bind="click: toggleNav">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path d="M2 6h20v3H2zm0 5h20v3H2zm0 5h20v3H2z"/>
+      </svg>
+    </a>
+
+    <main>
+        <div id="map"></div>
+    </main>
+
   <!-- Detail Modal-->
   <div class="modal fade" id="detailModal" role="dialog">
     <div class="modal-dialog">
@@ -44,60 +76,22 @@
     </div>
   </div>
 
-<div class="container test" id="gMap">
+</body>
+  <script src="https://use.fontawesome.com/bdf18541d4.js"></script>
+  <!-- connect to Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/3.7.4/firebase.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="assets/js/fb_config.js"></script>
+  <!-- uncomment to update data -->
+  <!-- <script src="utils/playgrounds.js"></script> -->
+  <!-- <script src="utils/parser.js"></script> -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.1/knockout-min.js"></script>
+  <script src="assets/js/map_styles.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script src="assets/js/autocomplete.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcD9d_PDIvqPRkNM254ZVP439kWcDtwC4&&libraries=places&callback=vm.initMap" async defer onerror="googleError()"></script>
 
 
-<!-- Jumbrotron Screen -->
-<div class="jumbotron" id="header">
-  <h1 id='title' class="visible">Playground Adventures!</h1>
-  <p id='title-description'> A resource to find the perfect playground </p>
-</div>
-
-
-<!-- Nav Bar - Search Function -->
-<form class="navbar-form navbar-center" id="inputArea" role="search">
-    <div id="locationField">
-      <input id="autocomplete" placeholder="Enter your address"
-             onFocus="geolocate()" type="text"></input>
-    </div>
-  <button type="button" class="btn btn-info btn-lg" id="submit">Submit</button>
-</form>
-<br>
-
-
-
-<!-- Input image for mainpage -->
-
-<div class="col-sm-12">
-<img id="kidsPlay" src="assets/images/playgroundImage.jpg" alt="Children at play.">
-
-</div>
-</div>
-
-    <!-- Firebase Reference -->
-    <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
-    <!-- connect to Firebase -->
-    <script src="https://www.gstatic.com/firebasejs/3.7.4/firebase.js"></script>
-    <script>
-      // Initialize Firebase
-      var config = {
-        apiKey: "AIzaSyDTrEvmBOIAoS0kMWQt1goNozOBUE1oeEI",
-        authDomain: "playground-adventures.firebaseapp.com",
-        databaseURL: "https://playground-adventures.firebaseio.com",
-        storageBucket: "playground-adventures.appspot.com",
-        messagingSenderId: "382666633943"
-      };
-      firebase.initializeApp(config);
-    </script>
-    <!-- remove playgrounds and parser later -->
-    <!-- <script src="utils/playgrounds.js"></script>
-    <script src="utils/parser.js"></script> -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-	  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="assets/js/app.js"></script>
-    <script src="assets/js/autocomplete.js"></script>
-	  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcD9d_PDIvqPRkNM254ZVP439kWcDtwC4&&libraries=places&callback=initMap" async defer onerror = "googleError()"></script>
-  </body>
 </html>
