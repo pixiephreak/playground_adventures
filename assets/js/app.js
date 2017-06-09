@@ -94,7 +94,13 @@ var ViewModel = function() {
         place = autocomplete.getPlace();
       });
 
-      document.getElementById('submit').onclick = function() {
+      $('#autocomplete').on('keyup', function(e) {
+        if (e.keyCode === 13) {
+          $('#submit').click();
+        }
+      });
+      
+      $('#submit').click(function(){
         // console.log("place",place);
         var address = place.formatted_address;
         var addressArray = address.split(' ');
@@ -113,17 +119,6 @@ var ViewModel = function() {
             mapTypeControl: false
           });
 
-          var search_area, in_area = [];
-          // a circle to look within:
-          search_area = {
-            strokeColor: '#FF0000',
-            strokeOpacity: 0.8,
-            strokeWeight: 2,
-            center: center,
-            radius: 500
-          }
-
-          search_area = new google.maps.Circle(search_area);
           //push all locations ot places markers array
           //this is where markers are going on page TODO compare tp ko original
           for (var key in locations) {
@@ -165,9 +160,20 @@ var ViewModel = function() {
         //
         //   console.log('inareainfo',in_area);
 
+        var search_area, in_area = [];
+        // a circle to look within:
+        search_area = {
+          strokeColor: '#FF0000',
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
+          center: center,
+          radius: 500
+        }
+
+        search_area = new google.maps.Circle(search_area);
 
         });
-      }
+      });
     });
 
   };
