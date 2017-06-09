@@ -15,16 +15,16 @@
       <input id="autocomplete" placeholder="Enter your address" onFocus="geolocate()" type="search">
       </input>
       <i class="fa fa-search" aria-hidden="true" id="submit"></i>
-
         <!-- KO dropdown -->
-        <aside>
+        <!-- TODO reintegrate dropdown (aside) based on accessibility criteria -->
+        <!-- <aside> -->
             <!-- Category: -->
-            <select data-bind="options: categories,
+            <!-- <select data-bind="options: categories,
                                value: selectedCategory ,
-                               optionsCaption: 'Choose...'"></select>
-        </aside>
+                               optionsCaption: 'Choose...'"></select> -->
+        <!-- </aside> -->
         <div>
-            <ul data-bind="foreach: places ">
+            <ul data-bind="foreach: locations ">
                 <li data-bind="text: name, click: $parent.setWindow">
                 </li>
             </ul>
