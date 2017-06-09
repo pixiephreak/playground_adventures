@@ -126,6 +126,7 @@ var ViewModel = function() {
       });
 
       $('#submit').click(function(){
+        self.toggleNav();
         // console.log("place",place);
         var address = place.formatted_address;
         var addressArray = address.split(' ');
