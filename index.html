@@ -23,11 +23,19 @@
                                value: selectedCategory ,
                                optionsCaption: 'Choose...'"></select> -->
         <!-- </aside> -->
-        <div>
-            <ul data-bind="foreach: locations ">
+        <!-- TODO turn off filter places
+        reintegrate when perfomance issue resolved(only filter within radius); -->
+        <!-- <div>
+            <ul data-bind="foreach: filterPlaces ">
                 <li data-bind="text: name, click: $parent.setWindow">
                 </li>
             </ul>
+        </div> -->
+        <div class="welcome">
+          <p>Welcome to Playground Adventures. Please enter a location in order to see playgrounds with accessibility features in the vicinity.</p>
+          <div class="more-info">
+            <p>Built using the <a href="http://www.playgroundsforeveryone.com/" target="_blank">NPR Playgrounds for Everyone dataset
+          </div></p>
         </div>
     </nav>
 

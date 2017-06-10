@@ -4,13 +4,13 @@ var center = {
   lat: 38.922106,
   lng: -77.017673
 };
-var places=[];
+var locations;
 
 var Place = function(data, map) {
   var self = this;
   self.defaultIcon = makeMarkerIcon('ff5c33');
   self.highlitedIcon = makeMarkerIcon('9653ac');
-  self.name = data.title;
+  self.name = data.name;
   self.type = data.type;
   self.currentMarker = null;
   self.marker = new google.maps.Marker({
@@ -64,6 +64,30 @@ var ViewModel = function() {
     this.navVisible(!this.navVisible());
   };
 
+  //filtering happens on load
+  this.filterPlaces = ko.computed(function() {
+    self.currentPlaces = ko.observableArray([]);
+    if (!self.selectedCategory() || self.selectedCategory() === 'All') {
+      self.places().forEach(function(place) {
+        place.marker.setVisible(true);
+      });
+      return self.places();
+    } else {
+      self.places().forEach(function(place) {
+        place.marker.setVisible(false); // marker is hidden
+        //add type to data in parser
+        var type = place.type;
+        if (self.selectedCategory().toLowerCase() === type.toLowerCase()) {
+          self.currentPlaces.push(place);
+          place.marker.setVisible(true); // marker is shown
+          place.marker.setAnimation(google.maps.Animation.DROP);
+        }
+      });
+      return self.currentPlaces();
+    }
+
+  });
+
 
   this.initMap = function() {
     infowindow = new google.maps.InfoWindow();
@@ -80,7 +104,8 @@ var ViewModel = function() {
   this.createMarkers = function(map) {
     //grab playground data from fb
     firebase.database().ref('playgrounds/').on("value", function(snapshot) {
-      var locations = snapshot.val();
+      locations = snapshot.val();
+      console.log('locations: ',locations);
       var place;
       var input = document.getElementById('autocomplete');
 
@@ -99,8 +124,9 @@ var ViewModel = function() {
           $('#submit').click();
         }
       });
-      
+
       $('#submit').click(function(){
+        self.toggleNav();
         // console.log("place",place);
         var address = place.formatted_address;
         var addressArray = address.split(' ');
@@ -124,41 +150,9 @@ var ViewModel = function() {
           for (var key in locations) {
             var obj = locations[key];
             if (!locations.hasOwnProperty(key)) continue;
-            places.push(new Place(obj, map));
+            self.places.push(new Place(obj, map));
             };
-          console.log(places);
-          //filtering happens on load
-          this.filterPlaces = ko.computed(function() {
-            self.currentPlaces = ko.observableArray([]);
-            if (!self.selectedCategory() || self.selectedCategory() === 'All') {
-              self.places().forEach(function(place) {s
-                place.marker.setVisible(true);
-              });
-              return self.places();
-            } else {
-              self.places().forEach(function(place) {
-                place.marker.setVisible(false); // marker is hidden
-                //add type to data in parser
-                var type = place.type;
-                if (self.selectedCategory().toLowerCase() === type.toLowerCase()) {
-                  self.currentPlaces.push(place);
-                  place.marker.setVisible(true); // marker is shown
-                  place.marker.setAnimation(google.maps.Animation.DROP);
-                }
-              });
-              return self.currentPlaces();
-            }
-
-          });
-        //place markers within radius on map doesn't work
-        //   $.each(places.marker, function(i, marker) {
-        //     if (google.maps.geometry.poly.containsLocation(marker.getPosition(), search_area)) {
-        //       console.log(marker);
-        //       in_area.push(marker);
-        //     }
-        // });
-        //
-        //   console.log('inareainfo',in_area);
+          console.log('places: ',places);
 
         var search_area, in_area = [];
         // a circle to look within:
@@ -171,6 +165,16 @@ var ViewModel = function() {
         }
 
         search_area = new google.maps.Circle(search_area);
+
+        //place markers within radius on map doesn't work
+        //   $.each(places.marker, function(i, marker) {
+        //     if (google.maps.geometry.poly.containsLocation(marker.getPosition(), search_area)) {
+        //       console.log(marker);
+        //       in_area.push(marker);
+        //     }
+        // });
+        //
+        //   console.log('inareainfo',in_area);
 
         });
       });

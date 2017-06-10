@@ -74,6 +74,12 @@ main {
     border-radius: 10px;
 }
 /* Since we're mobile-first, by default, the drawer is hidden. */
+.welcome {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 4%;
+  margin-top: 2%;
+}
 
 nav {
     width: 300px;
