@@ -154,16 +154,6 @@ var ViewModel = function() {
             };
           console.log('places: ',places);
 
-        //place markers within radius on map doesn't work
-        //   $.each(places.marker, function(i, marker) {
-        //     if (google.maps.geometry.poly.containsLocation(marker.getPosition(), search_area)) {
-        //       console.log(marker);
-        //       in_area.push(marker);
-        //     }
-        // });
-        //
-        //   console.log('inareainfo',in_area);
-
         var search_area, in_area = [];
         // a circle to look within:
         search_area = {
@@ -175,6 +165,16 @@ var ViewModel = function() {
         }
 
         search_area = new google.maps.Circle(search_area);
+
+        //place markers within radius on map doesn't work
+        //   $.each(places.marker, function(i, marker) {
+        //     if (google.maps.geometry.poly.containsLocation(marker.getPosition(), search_area)) {
+        //       console.log(marker);
+        //       in_area.push(marker);
+        //     }
+        // });
+        //
+        //   console.log('inareainfo',in_area);
 
         });
       });
