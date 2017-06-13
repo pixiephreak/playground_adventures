@@ -86,12 +86,13 @@ nav {
     height: 100%;
     position: absolute;
     /* This trasform moves the drawer off canvas. */
-
+    max-height:80%;
+    overflow:auto;/* to get scroll */
     -webkit-transform: translate(-320px, 0);
     transform: translate(-320px, 0);
-    /* Optionally, we animate the drawer. */
-
+    /* animate the drawer. */
     transition: transform 0.3s ease;
+    margin-top: 5%;
 }
 
 nav.open {

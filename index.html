@@ -23,14 +23,14 @@
                                value: selectedCategory ,
                                optionsCaption: 'Choose...'"></select> -->
         <!-- </aside> -->
-        <!-- TODO turn off filter places
-        reintegrate when perfomance issue resolved(only filter within radius); -->
-        <!-- <div>
+        
+        <div>
             <ul data-bind="foreach: filterPlaces ">
+
                 <li data-bind="text: name, click: $parent.setWindow">
                 </li>
             </ul>
-        </div> -->
+        </div>
         <div class="welcome">
           <p>Welcome to Playground Adventures. Please enter a location in order to see playgrounds with accessibility features in the vicinity.</p>
           <div class="more-info">
@@ -49,41 +49,6 @@
         <div id="map"></div>
     </main>
 
-  <!-- Detail Modal-->
-  <div class="modal fade" id="detailModal" role="dialog">
-    <div class="modal-dialog">
-
-      <!-- Detail Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Playground Details</h4>
-        </div>
-        <div class="modal-body">
-          <div id="name">Row 1</div>
-          <hr>
-           <div id="weather">
-            <div class="row">
-             <div class="col-xs-6" id="temp"></div>
-             <div class="col-xs-6" id="weatherIcon"></div>
-            </div>
-           </div>
-           <hr>
-            <div id="address">Row 3</div>
-            <hr>
-             <div id="accessibility">Row 4</div>
-             <hr>
-              <div id="contact">Row 5</div>
-
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
 </body>
   <script src="https://use.fontawesome.com/bdf18541d4.js"></script>
   <!-- connect to Firebase -->
@@ -99,7 +64,7 @@
   <script src="assets/js/map_styles.js"></script>
   <script src="assets/js/app.js"></script>
   <script src="assets/js/autocomplete.js"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcD9d_PDIvqPRkNM254ZVP439kWcDtwC4&&libraries=places&callback=vm.initMap" async defer onerror="googleError()"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcD9d_PDIvqPRkNM254ZVP439kWcDtwC4&&libraries=places&libraries=places,geometry&callback=vm.initMap" async defer onerror="googleError()"></script>
 
 
 </html>

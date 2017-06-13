@@ -73,7 +73,9 @@ var ViewModel = function() {
       });
       return self.places();
     } else {
+
       self.places().forEach(function(place) {
+        console.log('features: ',self.place.features);
         place.marker.setVisible(false); // marker is hidden
         //add type to data in parser
         var type = place.type;
@@ -90,6 +92,7 @@ var ViewModel = function() {
 
 
   this.initMap = function() {
+
     infowindow = new google.maps.InfoWindow();
     var map;
     map = new google.maps.Map(document.getElementById('map'), {
@@ -147,12 +150,19 @@ var ViewModel = function() {
 
           //push all locations ot places markers array
           //this is where markers are going on page TODO compare tp ko original
+          count = 0;
           for (var key in locations) {
             var obj = locations[key];
-            if (!locations.hasOwnProperty(key)) continue;
-            self.places.push(new Place(obj, map));
+            var objLat = obj.location;
+            var distanceFromCenter = google.maps.geometry.spherical.computeDistanceBetween(new google.maps.LatLng(center.lat,center.lng),new google.maps.LatLng(objLat.lat, objLat.lng));
+            if(!locations.hasOwnProperty(key)) contine;
+            if (distanceFromCenter < 200000){
+              console.log('loading: ',count,' ',obj,' ',distanceFromCenter);
+              self.places.push(new Place(obj, map));
+              count ++;
+            }
             };
-          console.log('places: ',places);
+          console.log('places: ', self.places);
 
         var search_area, in_area = [];
         // a circle to look within:
