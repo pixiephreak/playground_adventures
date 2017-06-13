@@ -17,15 +17,15 @@
       <i class="fa fa-search" aria-hidden="true" id="submit"></i>
         <!-- KO dropdown -->
         <!-- TODO reintegrate dropdown (aside) based on accessibility criteria -->
-        <!-- <aside> -->
+        <aside>
             <!-- Category: -->
-            <!-- <select data-bind="options: categories,
+            <select data-bind="options: categories,
                                value: selectedCategory ,
-                               optionsCaption: 'Choose...'"></select> -->
-        <!-- </aside> -->
-        
+                               optionsCaption: 'Choose...'"></select>
+        </aside>
+
         <div>
-            <ul data-bind="foreach: filterPlaces ">
+            <ul id='list-view' data-bind="foreach: filterPlaces ">
 
                 <li data-bind="text: name, click: $parent.setWindow">
                 </li>

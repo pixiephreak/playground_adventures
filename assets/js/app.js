@@ -62,6 +62,7 @@ var ViewModel = function() {
   this.navVisible = ko.observable(true);
   this.toggleNav = function() {
     this.navVisible(!this.navVisible());
+    document.getElementById('list-view').style.background = '#fff';
   };
 
   //filtering happens on load

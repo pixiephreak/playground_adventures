@@ -15,13 +15,20 @@ body {
 ul {
     list-style: none;
     padding: 10px;
-    background-color: #fff;
+    /*background-color: #fff;*/
     border-radius: 10px;
+    margin-top: 2%;
 }
 
 li {
     border-bottom: 2px solid #ccc;
     padding: 5px;
+}
+
+select {
+  background-color: #fff;
+  margin-top: 2%;
+  padding: 5px;
 }
 
 .btn {
@@ -78,7 +85,7 @@ main {
   background-color: #fff;
   border-radius: 10px;
   padding: 4%;
-  margin-top: 2%;
+  margin-top: 1%;
 }
 
 nav {
