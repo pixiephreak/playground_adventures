@@ -55,7 +55,7 @@ var Place = function(data, map) {
 
 var ViewModel = function() {
   var self = this;
-  this.categories = ko.observableArray(["All", "Something", "Something"]);
+  this.categories = ko.observableArray(["all", "smooth surface throughout", "transfer stations to play components", "ramps to play components", "accessible swing", "sound play components", "sight impaired play components", "safety fence", "single entrance"]);
   this.places = ko.observableArray([]);
   this.selectedCategory = ko.observable('');
 
@@ -76,15 +76,22 @@ var ViewModel = function() {
     } else {
 
       self.places().forEach(function(place) {
-        console.log('features: ',self.place.features);
-        place.marker.setVisible(false); // marker is hidden
-        //add type to data in parser
-        var type = place.type;
-        if (self.selectedCategory().toLowerCase() === type.toLowerCase()) {
-          self.currentPlaces.push(place);
-          place.marker.setVisible(true); // marker is shown
-          place.marker.setAnimation(google.maps.Animation.DROP);
+        if(place.marker.features){
+          console.log('place array:',place.marker.features);
+          console.log('category:', self.selectedCategory().toLowerCase());
+
+          place.marker.features.forEach(function(place){
+            console.log(place)
+          });
+            console.log("found one: ", place);
+            //add type to data in parser
+            self.currentPlaces.push(place);
+            place.marker.setVisible(true); // marker is shown
+            place.marker.setAnimation(google.maps.Animation.DROP);
+
         }
+        place.marker.setVisible(false); // marker is hidden
+
       });
       return self.currentPlaces();
     }
@@ -109,7 +116,6 @@ var ViewModel = function() {
     //grab playground data from fb
     firebase.database().ref('playgrounds/').on("value", function(snapshot) {
       locations = snapshot.val();
-      console.log('locations: ',locations);
       var place;
       var input = document.getElementById('autocomplete');
 
@@ -131,7 +137,6 @@ var ViewModel = function() {
 
       $('#submit').click(function(){
         self.toggleNav();
-        // console.log("place",place);
         var address = place.formatted_address;
         var addressArray = address.split(' ');
         var addressParam = addressArray.join('+');
@@ -158,35 +163,11 @@ var ViewModel = function() {
             var distanceFromCenter = google.maps.geometry.spherical.computeDistanceBetween(new google.maps.LatLng(center.lat,center.lng),new google.maps.LatLng(objLat.lat, objLat.lng));
             if(!locations.hasOwnProperty(key)) contine;
             if (distanceFromCenter < 200000){
-              console.log('loading: ',count,' ',obj,' ',distanceFromCenter);
+              // console.log('loading: ',count,' ',obj,' ',distanceFromCenter);
               self.places.push(new Place(obj, map));
               count ++;
             }
             };
-          console.log('places: ', self.places);
-
-        var search_area, in_area = [];
-        // a circle to look within:
-        search_area = {
-          strokeColor: '#FF0000',
-          strokeOpacity: 0.8,
-          strokeWeight: 2,
-          center: center,
-          radius: 500
-        }
-
-        search_area = new google.maps.Circle(search_area);
-
-        //place markers within radius on map doesn't work
-        //   $.each(places.marker, function(i, marker) {
-        //     if (google.maps.geometry.poly.containsLocation(marker.getPosition(), search_area)) {
-        //       console.log(marker);
-        //       in_area.push(marker);
-        //     }
-        // });
-        //
-        //   console.log('inareainfo',in_area);
-
         });
       });
     });
