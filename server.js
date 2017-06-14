@@ -30,17 +30,6 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.text());
 app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 
-// Initialize Firebase
-var config = {
-  apiKey: process.env.apiKey,
-  authDomain: process.env.authDomain,
-  databaseURL: process.env.databaseURL,
-  storageBucket: process.env.storageBucket,
-  messagingSenderId: process.env.messagingSenderId
-};
-
-firebase.initializeApp(config);
-
 app.listen(PORT, function() {
   console.log("App listening on PORT: " + PORT);
 });
