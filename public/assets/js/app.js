@@ -43,8 +43,13 @@ var Place = function(data, map) {
       var remarks = self.marker.remarks || " ";
       infowindow.marker = self.marker;
       infowindow.open(map, self.marker);
+      function listItems(p){
+        if(typeof object){
+          p.map(function(string){ return `<li>${string}</li>`});
+        }
+      }
       // ${features.forEach(function(feature){`<li>${feature}</li>`})} TODO how to set li in setContent
-      infowindow.setContent(`<div id='playground-name' style="color: #248f8f;font-weight:bold;padding:1%">Playground: ${name}</div><div class="playground-deets" style="padding:1%">Address: ${address}</div><ul>Accessibility Features: </ul><li>${features}</li><div class="playground-deets style="padding:1%"">${remarks}</div>`);
+      infowindow.setContent(`<div id='playground-name' style="color: #248f8f;font-weight:bold;padding:1%">Playground: ${name}</div><div class="playground-deets" style="padding:1%">Address: ${address}</div>Accessibility Features: <p>${features}</p></div><div class="playground-deets style="padding:1%"">${remarks}</div>`);
       infowindow.addListener('closeclick', function() {
         infowindow.marker = null;
       });
