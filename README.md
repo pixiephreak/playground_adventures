@@ -4,7 +4,7 @@ Continuing work on the project created and developed by Meagan Gallagher, Cyrus 
 See the beta version [here](https://github.com/pixiephreak/GWCB_project-1).
 
 ## Overview and Purpose of Application
-[**Playground Adventures**](https://mysterious-brook-83674.herokuapp.com/) parses JSON from the [NPR Playgrounds for Everyone] (http://www.playgroundsforeveryone.com/) dataset and stores it in Firebase, where it can be updated and added to. The Firebase data is used by the Google interactive map to show accessible playground locations and information. I integrated the Knockout.js framework to show locations in a sidebar list view as well. 
+[**Playground Adventures**](https://mysterious-brook-83674.herokuapp.com/) parses JSON from the [NPR Playgrounds for Everyone(http://www.playgroundsforeveryone.com/) dataset and stores it in Firebase, where it can be updated and added to. The Firebase data is used by the Google interactive map to show accessible playground locations and information. I integrated the Knockout.js framework to show locations in a sidebar list view as well. 
 
 Many caregivers find that children are unpredictable. Locating a safe, accessible recreation area at a moments notice is a common need. This can be especially challenging on the road. Playground Adventures is designed and implemented as a mobile-first app with a clean interface, so parents can see playgrounds near any location, as well as information details and accessibility information about each. 
 
@@ -12,7 +12,7 @@ Many caregivers find that children are unpredictable. Locating a safe, accessibl
 
 This web application was built using the following technologies:
 - Data/Database
-  - [firebase](https://firebase.google.com/) realtime data base
+  - [Firebase](https://firebase.google.com/) realtime data base
   - http://www.playgroundsforeveryone.com/ data as JSON
 - Front End Development
   - Knockout.js
@@ -38,3 +38,4 @@ This web application was built using the following technologies:
 ## Future Plans
 - Users upload pictures of each playground.
 - Reintegrate weather API and UV index for each location.
+- We choose not to have users upload reviews, as we don't have the resources to manage the entries for discriminatory language and content.
