@@ -1,9 +1,9 @@
 # Playground Adventures
 Continuing work on the project created and developed by Meagan Gallagher, Cyrus Vossoughi, Alfred Avor, and Jane Claire Remick
-See the beta version [here] (https://github.com/pixiephreak/GWCB_project-1)
+See the beta version (here) [https://github.com/pixiephreak/GWCB_project-1]
 
 ## Overview and Purpose of Application
-[**Playground Adventures**](https://mysterious-brook-83674.herokuapp.com/) parses JSON from the [NPR Playgrounds for Everyone] (http://www.playgroundsforeveryone.com/) dataset and stores it in Firebase, where it can be updated and added to. The Firebase data is used by the Google interactive map to show accessible playground locations and information. I integrated the Knockout.js framework to show locations in a sidebar list view as well. 
+(**Playground Adventures**)[https://mysterious-brook-83674.herokuapp.com/] parses JSON from the (NPR Playgrounds for Everyone) [http://www.playgroundsforeveryone.com/] dataset and stores it in Firebase, where it can be updated and added to. The Firebase data is used by the Google interactive map to show accessible playground locations and information. I integrated the Knockout.js framework to show locations in a sidebar list view as well. 
 
 Many caregivers find that children are unpredictable. Locating a safe, accessible recreation area at a moments notice is a common need. This can be especially challenging on the road. Playground Adventures is designed and implemented as a mobile-first app with a clean interface, so parents can see playgrounds near any location, as well as information details and accessibility information about each. 
 
